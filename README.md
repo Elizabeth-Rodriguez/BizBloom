@@ -1,19 +1,14 @@
-# BizBloom
+# 🌱 BizBloom
 
-A new Flutter project created with FlutLab - https://flutlab.io
+**BizBloom** es una aplicación desarrollada con Flutter que ayuda a emprendedores a calcular los costos de producción y analizar la viabilidad de sus negocios. Su diseño es limpio, elegante y está pensado para facilitar el uso desde el primer toque.
 
-## Getting Started
+## ✨ Características
 
-A few resources to get you started if this is your first Flutter project:
-
-- https://flutter.dev/docs/get-started/codelab
-- https://flutter.dev/docs/cookbook
-
-For help getting started with Flutter, view our
-https://flutter.dev/docs, which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-## Getting Started: FlutLab - Flutter Online IDE
-
-- How to use FlutLab? Please, view our https://flutlab.io/docs
-- Join the discussion and conversation on https://flutlab.io/residents
+- Pantalla de bienvenida con logo personalizado.
+- Menú principal con acceso directo a herramientas.
+- Calculadora de costos de producción por unidad:
+  - Agrega múltiples materiales.
+  - Ingresa cantidades y costos unitarios.
+  - Introduce tus costos fijos mensuales.
+  - Calcula automáticamente el costo total por unidad.
+- Navegación guiada entre pantallas.
