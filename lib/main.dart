@@ -116,11 +116,14 @@ class inicio extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Calcular Nuevo Negocio',
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      color: Colors.black,
+                  Expanded(
+                    child: Text(
+                      'Calcular Nuevo Negocio',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Icon(
