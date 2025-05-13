@@ -24,7 +24,7 @@ class _LogroScreenState extends State<LogroScreen> {
     return BaseScreen(
       title: '¿Que esperas lograr?',
       showBack: true,
-      showBottomBar: true,
+      showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

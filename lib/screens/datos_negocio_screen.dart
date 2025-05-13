@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../widgets/base_screen.dart';
+import '../models/negocio.dart';
+import '../helpers/db_helper.dart';
 
 class DatosNegocioScreen extends StatefulWidget {
   const DatosNegocioScreen({super.key});
@@ -13,16 +15,14 @@ class _DatosNegocioScreenState extends State<DatosNegocioScreen> {
   final TextEditingController nombreNegocioController = TextEditingController();
   final TextEditingController campoController = TextEditingController();
   final TextEditingController descripcionController = TextEditingController();
-  final TextEditingController nombreProductoController =
-      TextEditingController();
+  final TextEditingController nombreProductoController = TextEditingController();
 
   void mostrarInfoCampo() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('¿Qué es el campo?'),
-        content: const Text(
-            'Se refiere al área económica o sector donde se desarrolla tu negocio, como panaderia, moda, tecnología, etc.'),
+        content: const Text('Se refiere al área económica o sector donde se desarrolla tu negocio, como panadería, moda, tecnología, etc.'),
         actions: [
           TextButton(
             child: const Text('Entendido'),
@@ -58,104 +58,90 @@ class _DatosNegocioScreenState extends State<DatosNegocioScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return BaseScreen(
-        title: 'Datos del Negocio',
-        showBack: true,
-        showBottomBar: false,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(
-                top: 100), // Ajusta el valor según lo necesites
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Nombre del negocio',
-                          style: GoogleFonts.montserrat()),
-                      const SizedBox(height: 5),
-                      TextField(
-                        controller: nombreNegocioController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Expanded(
-                            child:
-                                Text('Campo', style: GoogleFonts.montserrat()),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.info_outline,
-                                size: 20, color: Colors.brown),
-                            onPressed: mostrarInfoCampo,
-                          )
-                        ],
-                      ),
-                      TextField(
-                        controller: campoController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text('Descripción breve',
-                          style: GoogleFonts.montserrat()),
-                      const SizedBox(height: 5),
-                      TextField(
-                        controller: descripcionController,
-                        maxLines: 3,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text('Nombre del producto',
-                          style: GoogleFonts.montserrat()),
-                      const SizedBox(height: 5),
-                      TextField(
-                        controller: nombreProductoController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          isDense: true,
-                        ),
-                      ),
-                    ],
-                  ),
+      title: 'Datos del Negocio',
+      showBack: true,
+      showBottomBar: false,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black, width: 1),
+                  borderRadius: BorderRadius.circular(24),
                 ),
-                const SizedBox(height: 30),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: continuar,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFEBDBA9),
-                      shape: const StadiumBorder(),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 14),
-                    ),
-                    child: Text('Siguiente',
-                        style: GoogleFonts.montserrat(color: Colors.black)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    campoTexto('Nombre del negocio', nombreNegocioController),
+                    campoConInfo('Campo', campoController, mostrarInfoCampo),
+                    campoTexto('Descripción breve', descripcionController, maxLines: 3),
+                    campoTexto('Nombre del producto', nombreProductoController),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+              Center(
+                child: ElevatedButton(
+                  onPressed: continuar,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFEBDBA9),
+                    shape: const StadiumBorder(),
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                   ),
-                )
-              ],
-            ),
+                  child: Text('Siguiente', style: GoogleFonts.montserrat(color: Colors.black)),
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  Widget campoTexto(String label, TextEditingController controller, {int maxLines = 1}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(label, style: GoogleFonts.montserrat()),
+        const SizedBox(height: 5),
+        TextField(
+          controller: controller,
+          maxLines: maxLines,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            isDense: true,
+          ),
+        )
+      ]),
+    );
+  }
+
+  Widget campoConInfo(String label, TextEditingController controller, VoidCallback onInfoTap) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(
+          children: [
+            Expanded(child: Text(label, style: GoogleFonts.montserrat())),
+            IconButton(
+              icon: const Icon(Icons.info_outline, color: Colors.brown),
+              onPressed: onInfoTap,
+            )
+          ],
+        ),
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            isDense: true,
+          ),
+        )
+      ]),
+    );
   }
 }

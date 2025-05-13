@@ -24,7 +24,7 @@ class _IntentoScreen extends State<IntentoScreen> {
     return BaseScreen(
       title: '¿Lo has intentado?',
       showBack: true,
-      showBottomBar: true,
+      showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -73,7 +73,7 @@ class _IntentoScreen extends State<IntentoScreen> {
 
           const SizedBox(height: 30),
 
-          // Botón de Siguiente
+        
           ElevatedButton(
             onPressed: opcionSeleccionada == null
                 ? null

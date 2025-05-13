@@ -24,7 +24,7 @@ class _MotivoScreenState extends State<MotivoScreen> {
     return BaseScreen(
       title: '¿Que te motiva?',
       showBack: true,
-      showBottomBar: true,
+      showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

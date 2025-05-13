@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../models/negocio.dart';
+import '../helpers/db_helper.dart';
 import '/screens/informe_screen.dart';
-import '/models/negocio.dart';
 
 class GenerarScreen extends StatelessWidget {
   final Negocio negocio;
 
   const GenerarScreen({super.key, required this.negocio});
+
+  Future<void> _guardarNegocio(BuildContext context) async {
+    // Guardar negocio en la base de datos usando DBHelper
+    int id = await DBHelper().insertarNegocio(negocio);
+    print("Negocio guardado con ID: $id");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +46,8 @@ class GenerarScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {
-                    // Navegar a InformeScreen y pasar el negocio
+                  onPressed: () async {
+                    await _guardarNegocio(context);  // Guardar negocio antes de navegar
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -51,8 +58,7 @@ class GenerarScreen extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFEAD69E),
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 40, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(24),
                     ),

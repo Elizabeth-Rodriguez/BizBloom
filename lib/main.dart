@@ -62,14 +62,13 @@ class BizBloomApp extends StatelessWidget {
         '/datos-negocio': (context) => const DatosNegocioScreen(),
         '/login': (context) => const LoginScreen(),
         
-        // Aquí se pasa el argumento 'negocio' al GenerarScreen
         '/generar': (context) {
           final negocio = ModalRoute.of(context)!.settings.arguments as Negocio?;
           if (negocio != null) {
             return GenerarScreen(negocio: negocio);
           } else {
-            // Si no se pasa el objeto Negocio, puedes manejar el error o redirigir
-            return const BienvenidaScreen(); // Redirigir a pantalla inicial o de error
+           
+            return const BienvenidaScreen(); 
           }
         },
       },

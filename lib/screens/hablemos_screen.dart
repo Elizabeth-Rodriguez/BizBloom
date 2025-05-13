@@ -10,57 +10,32 @@ class HablemosScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return BaseScreen(
-      title: 'Hablemos',
+      title: '',
       showBack: false,
-      showBottomBar: true,
+      showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: [
+         children: [
           Text(
-            '¡Gracias por compartir tu visión!',
+            'Hablemos de tu negocio',
             style: GoogleFonts.montserrat(
               fontSize: size.width * 0.06,
               fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 16),
           Text(
-            'Tu negocio tiene potencial y estás dando pasos importantes para llevarlo al siguiente nivel. 💡',
+            'Es hora de hablar de costos y ganancias, esta información nos ayudará a realizar tu informe',
             style: GoogleFonts.montserrat(fontSize: 16),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            'Recomendaciones generales:',
-            style: GoogleFonts.montserrat(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 10),
-          ...[
-            '📈 Evalúa regularmente tus costos y márgenes.',
-            '🎯 Establece metas trimestrales claras.',
-            '📊 Utiliza herramientas de proyección para planificar tu crecimiento.',
-            '🤝 Busca redes de apoyo o mentoría emprendedora.',
-          ].map(
-            (reco) => Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                reco,
-                style: GoogleFonts.montserrat(fontSize: 15),
-              ),
-            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 32),
           Center(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  '/datos-negocio',
-                  (route) => false,
-                );
+                Navigator.pushNamed(context, '/datos-negocio');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFBCA177),

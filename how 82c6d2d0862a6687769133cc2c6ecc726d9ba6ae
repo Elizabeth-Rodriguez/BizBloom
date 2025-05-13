@@ -1,0 +1,16 @@
+[33mtree 82c6d2d0862a6687769133cc2c6ecc726d9ba6ae[m
+
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+README.md
+analysis_options.yaml
+android/
+assets/
+build/
+ios/
+lib/
+pubspec.lock
+pubspec.yaml
+web/
