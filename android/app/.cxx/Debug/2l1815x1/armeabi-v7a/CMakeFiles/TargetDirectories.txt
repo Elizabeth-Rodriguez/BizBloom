@@ -1,0 +1,2 @@
+C:/Users/PC/Downloads/BizBloom/android/app/.cxx/Debug/2l1815x1/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/PC/Downloads/BizBloom/android/app/.cxx/Debug/2l1815x1/armeabi-v7a/CMakeFiles/rebuild_cache.dir
