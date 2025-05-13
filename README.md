@@ -1,19 +1,24 @@
-# BizBloom
+# 🌸 BizBloom
 
-A new Flutter project created with FlutLab - https://flutlab.io
+**BizBloom** es una app hecha en Flutter para ayudarte a calcular el punto de equilibrio de tu negocio. Ideal si estás empezando algo y quieres saber cuántos productos necesitas vender para no perder dinero 💸.
 
-## Getting Started
+## 🚀 ¿Qué hace?
 
-A few resources to get you started if this is your first Flutter project:
+- Te hace preguntas sobre tu negocio 📝
+- Calcula el costo total, el precio de venta y el punto de equilibrio 📊
+- Te muestra un informe con gráficas y explicaciones ✨
+- Guarda los informes para que los veas después 📂
 
-- https://flutter.dev/docs/get-started/codelab
-- https://flutter.dev/docs/cookbook
+## 🧮 ¿Qué fórmula usa?
 
-For help getting started with Flutter, view our
-https://flutter.dev/docs, which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
-## Getting Started: FlutLab - Flutter Online IDE
+Todo lo calcula con base en lo que tú le pongas (materiales, precio, margen de ganancia, etc.).
 
-- How to use FlutLab? Please, view our https://flutlab.io/docs
-- Join the discussion and conversation on https://flutlab.io/residents
+## 🛠️ Tecnologías
+
+- Flutter + Dart
+- Diseño responsivo
+
+---
+
+App hecha con 💖 para emprendedores con ganas de crecer 🚀
