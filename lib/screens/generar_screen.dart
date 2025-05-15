@@ -56,7 +56,7 @@ class GenerarScreen extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFEAD69E),
+                    backgroundColor: const Color(0xFFEBDBA9),
                     foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                     shape: RoundedRectangleBorder(

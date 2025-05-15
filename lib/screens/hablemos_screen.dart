@@ -16,7 +16,7 @@ class HablemosScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-         children: [
+        children: [
           Text(
             'Hablemos de tu negocio',
             style: GoogleFonts.montserrat(
@@ -38,9 +38,8 @@ class HablemosScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/datos-negocio');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFBCA177),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                backgroundColor: const Color(0xFFEBDBA9),
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

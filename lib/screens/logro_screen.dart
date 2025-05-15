@@ -53,7 +53,7 @@ class _LogroScreenState extends State<LogroScreen> {
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 decoration: BoxDecoration(
                   color:
-                      esSeleccionada ? const Color(0xFFBCA177) : Colors.white,
+                      esSeleccionada ? const Color(0xffefca92) : Colors.white,
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(20),
                 ),
