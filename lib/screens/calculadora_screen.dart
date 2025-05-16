@@ -240,21 +240,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
                 fontSize: 28, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                  context, '/logro'); // <- Aquí defines la siguiente pantalla
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFEBDBA9),
-              shape: const StadiumBorder(),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-            ),
-            child: Text(
-              'Siguiente',
-              style: GoogleFonts.montserrat(color: Colors.black),
-            ),
-          ),
+         
         ],
       ),
     );

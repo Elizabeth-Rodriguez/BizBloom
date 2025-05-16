@@ -11,6 +11,7 @@ class InicioScreen extends StatelessWidget {
 
     return BaseScreen(
         title: 'Inicio',
+        showBack: false,
         showBottomBar: true,
         child: Padding(
           padding: const EdgeInsets.only(top: 100),

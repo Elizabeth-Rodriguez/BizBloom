@@ -22,14 +22,23 @@ class _IntentoScreen extends State<IntentoScreen> {
     final size = MediaQuery.of(context).size;
 
     return BaseScreen(
-      title: '¿Lo has intentado?',
+      title: '',
       showBack: true,
       showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const SizedBox(height: 100),
+         Text(
+          textAlign: TextAlign.center,
+          '¿Lo has intentado antes?\n',
+          style: GoogleFonts.montserrat(
+            fontSize: size.width * 0.060,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
           Text(
-            'Selecciona uno de los siguientes objetivos:',
+            'Selecciona una de las siguientes opciones:',
             textAlign: TextAlign.center,
             style: GoogleFonts.montserrat(
               fontSize: size.width * 0.045,
@@ -92,7 +101,7 @@ class _IntentoScreen extends State<IntentoScreen> {
               'Siguiente',
               style: GoogleFonts.montserrat(
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 color: Colors.black,
               ),
             ),

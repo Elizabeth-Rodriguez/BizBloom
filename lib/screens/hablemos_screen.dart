@@ -13,48 +13,69 @@ class HablemosScreen extends StatelessWidget {
       title: '',
       showBack: false,
       showBottomBar: false,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            'Hablemos de tu negocio',
-            style: GoogleFonts.montserrat(
-              fontSize: size.width * 0.06,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
+      child: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: size.width * 0.08,
+            vertical: size.height * 0.1,
           ),
-          const SizedBox(height: 16),
-          Text(
-            'Es hora de hablar de costos y ganancias, esta información nos ayudará a realizar tu informe',
-            style: GoogleFonts.montserrat(fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/datos-negocio');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFEBDBA9),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: Text(
-                'Continuar',
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Hablemos de tu negocio',
                 style: GoogleFonts.montserrat(
-                  fontSize: 16,
-                  color: Colors.black,
+                  fontSize: size.width * 0.06,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Es hora de hablar de costos y ganancias, esta información nos ayudará a realizar tu informe',
+                style: GoogleFonts.montserrat(
+                  fontSize: size.width * 0.04,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32),
+
+              // Imagen debajo del texto
+              Image.asset(
+                'assets/images/graphic.png', // Asegúrate de que el path sea correcto y esté en pubspec.yaml
+                width: size.width * 0.7,
+                height: size.height * 0.25,
+                fit: BoxFit.contain,
+              ),
+
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/datos-negocio');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFEBDBA9),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: size.width * 0.1,
+                    vertical: size.height * 0.02,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                child: Text(
+                  'Continuar',
+                  style: GoogleFonts.montserrat(
+                    fontSize: size.width * 0.045,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
+

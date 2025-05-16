@@ -1,0 +1,2 @@
+C:/Users/PC/OneDrive/Escritorio/BizBloom/android/app/.cxx/Debug/4f4p2c49/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/PC/OneDrive/Escritorio/BizBloom/android/app/.cxx/Debug/4f4p2c49/arm64-v8a/CMakeFiles/rebuild_cache.dir

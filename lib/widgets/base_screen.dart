@@ -6,6 +6,7 @@ class BaseScreen extends StatelessWidget {
   final Widget child;
   final bool showBack;
   final bool showBottomBar;
+  final bool showSkip; // Nueva propiedad para el botón "Omitir"
 
   const BaseScreen({
     super.key,
@@ -13,6 +14,7 @@ class BaseScreen extends StatelessWidget {
     required this.child,
     this.showBack = false,
     this.showBottomBar = false,
+    this.showSkip = false, // Valor por defecto: no se muestra
   });
 
   @override
@@ -32,6 +34,17 @@ class BaseScreen extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => Navigator.pop(context),
               )
+            : null,
+        actions: showSkip
+            ? [
+                IconButton(
+                  icon: const Icon(Icons.skip_next, color: Colors.black),
+                  onPressed: () {
+                    // Define aquí la acción cuando el usuario presione "Omitir"
+                    Navigator.pushNamed(context,'/hablemos');
+                  },
+                ),
+              ]
             : null,
       ),
       body: SafeArea(

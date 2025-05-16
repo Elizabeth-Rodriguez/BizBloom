@@ -22,14 +22,23 @@ class _MotivoScreenState extends State<MotivoScreen> {
     final size = MediaQuery.of(context).size;
 
     return BaseScreen(
-      title: '¿Que te motiva?',
+      title: '',
       showBack: true,
       showBottomBar: false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+         const SizedBox(height: 100),
+         Text(
+          textAlign: TextAlign.center,
+          '¿Qué es lo que te motiva?\n',
+          style: GoogleFonts.montserrat(
+            fontSize: size.width * 0.060,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
           Text(
-            'Selecciona uno de los siguientes objetivos:',
+            'Selecciona una de las siguientes opciones:',
             textAlign: TextAlign.center,
             style: GoogleFonts.montserrat(
               fontSize: size.width * 0.045,
@@ -78,7 +87,6 @@ class _MotivoScreenState extends State<MotivoScreen> {
             onPressed: opcionSeleccionada == null
                 ? null
                 : () {
-                    // Aquí puedes poner tu ruta deseada, por ejemplo:
                     Navigator.pushNamed(context, '/hablemos');
                   },
             style: ElevatedButton.styleFrom(
@@ -93,7 +101,7 @@ class _MotivoScreenState extends State<MotivoScreen> {
               'Siguiente',
               style: GoogleFonts.montserrat(
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.normal,
                 color: Colors.black,
               ),
             ),
