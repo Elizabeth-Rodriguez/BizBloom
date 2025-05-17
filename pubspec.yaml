@@ -1,8 +1,7 @@
 name: bizbloom
 description: "Calcula punto de equilibrio"
 publish_to: 'none'
-version: 1.4.2+1
-
+version: 1.4.4+1
 
 environment:
   sdk: '>=3.0.0 <5.0.0'
@@ -16,14 +15,19 @@ dependencies:
   fl_chart: ^1.0.0
   sqflite: ^2.3.2
   path: ^1.9.0
-
-
   intl: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.11
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icono.png"
 
 flutter:
   uses-material-design: true
