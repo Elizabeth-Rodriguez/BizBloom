@@ -28,7 +28,7 @@ class _MotivoScreenState extends State<MotivoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-         const SizedBox(height: 100),
+         const SizedBox(height: 170),
          Text(
           textAlign: TextAlign.center,
           '¿Qué es lo que te motiva?\n',

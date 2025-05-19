@@ -28,7 +28,7 @@ class _IntentoScreen extends State<IntentoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 100),
+          const SizedBox(height: 170),
          Text(
           textAlign: TextAlign.center,
           '¿Lo has intentado antes?\n',

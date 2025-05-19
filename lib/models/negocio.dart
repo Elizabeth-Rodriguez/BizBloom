@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Negocio {
-  final int? id; // Nuevo campo opcional
+  final int? id;
   final String nombreNegocio;
   final String campo;
   final String descripcion;
@@ -44,6 +44,29 @@ class Negocio {
     return costosFijos / (precioVenta - costoVariable);
   }
 
+  // COPY WITH
+  Negocio copyWith({
+    int? id,
+    String? nombreNegocio,
+    String? campo,
+    String? descripcion,
+    String? nombreProducto,
+    List<MaterialProducto>? materiales,
+    double? costosFijos,
+    double? margenGanancia,
+  }) {
+    return Negocio(
+      id: id ?? this.id,
+      nombreNegocio: nombreNegocio ?? this.nombreNegocio,
+      campo: campo ?? this.campo,
+      descripcion: descripcion ?? this.descripcion,
+      nombreProducto: nombreProducto ?? this.nombreProducto,
+      materiales: materiales ?? this.materiales,
+      costosFijos: costosFijos ?? this.costosFijos,
+      margenGanancia: margenGanancia ?? this.margenGanancia,
+    );
+  }
+
   // CONVERSIÓN A MAPA (para SQLite)
   Map<String, dynamic> toMap() {
     return {
@@ -69,13 +92,22 @@ class Negocio {
       materiales: (jsonDecode(map['materiales']) as List)
           .map((m) => MaterialProducto.fromMap(m))
           .toList(),
-      costosFijos: (map['costosFijos'] is int)
-          ? (map['costosFijos'] as int).toDouble()
-          : map['costosFijos'],
-      margenGanancia: (map['margenGanancia'] is int)
-          ? (map['margenGanancia'] as int).toDouble()
-          : map['margenGanancia'],
+      costosFijos: _toDouble(map['costosFijos']),
+      margenGanancia: _toDouble(map['margenGanancia']),
     );
+  }
+
+  static double _toDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is int) return value.toDouble();
+    if (value is double) return value;
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
+
+  @override
+  String toString() {
+    return 'Negocio(id: $id, nombreNegocio: $nombreNegocio, campo: $campo, descripcion: $descripcion, nombreProducto: $nombreProducto, materiales: $materiales, costosFijos: $costosFijos, margenGanancia: $margenGanancia)';
   }
 }
 
@@ -104,13 +136,36 @@ class MaterialProducto {
   factory MaterialProducto.fromMap(Map<String, dynamic> map) {
     return MaterialProducto(
       nombre: map['nombre'],
-      cantidad: (map['cantidad'] is int)
-          ? (map['cantidad'] as int).toDouble()
-          : map['cantidad'],
+      cantidad: _toDouble(map['cantidad']),
       unidad: map['unidad'],
-      costoUnitario: (map['costoUnitario'] is int)
-          ? (map['costoUnitario'] as int).toDouble()
-          : map['costoUnitario'],
+      costoUnitario: _toDouble(map['costoUnitario']),
     );
+  }
+
+  static double _toDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is int) return value.toDouble();
+    if (value is double) return value;
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
+
+  MaterialProducto copyWith({
+    String? nombre,
+    double? cantidad,
+    String? unidad,
+    double? costoUnitario,
+  }) {
+    return MaterialProducto(
+      nombre: nombre ?? this.nombre,
+      cantidad: cantidad ?? this.cantidad,
+      unidad: unidad ?? this.unidad,
+      costoUnitario: costoUnitario ?? this.costoUnitario,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'MaterialProducto(nombre: $nombre, cantidad: $cantidad, unidad: $unidad, costoUnitario: $costoUnitario)';
   }
 }

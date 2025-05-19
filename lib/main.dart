@@ -1,22 +1,25 @@
-import 'screens/generar_screen.dart';
-import 'screens/informe_screen.dart';
-import 'package:bizbloom/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'models/negocio.dart';
 
-// Importa tus pantallas
+import 'models/negocio.dart';
+import 'providers/negocio_provider.dart';
+
+// Pantallas
 import 'screens/bienvenida_screen.dart';
 import 'screens/inicio_screen.dart';
+import 'screens/calculadora_screen.dart';
 import 'screens/logro_screen.dart';
 import 'screens/intento_screen.dart';
 import 'screens/motivo_screen.dart';
 import 'screens/hablemos_screen.dart';
-import 'screens/datos_negocio_screen.dart';
 import 'screens/datos_producto_screen.dart';
-import 'screens/calculadora_screen.dart';
+import 'screens/datos_negocio_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/generar_screen.dart';
+import 'screens/detalle_negocio.dart';
 
 Future<Map<String, dynamic>> loadConfig() async {
   try {
@@ -42,36 +45,44 @@ class BizBloomApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'BizBloom',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        textTheme: GoogleFonts.montserratTextTheme(),
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const BienvenidaScreen(),
-        '/inicio': (context) => const InicioScreen(),
-        '/calcu': (context) => const CalculadoraScreen(),
-        '/logro': (context) => const LogroScreen(),
-        '/intento': (context) => const IntentoScreen(),
-        '/motivo': (context) => const MotivoScreen(),
-        '/hablemos': (context) => const HablemosScreen(),
-        '/datos': (context) => const DatosProductoScreen(),
-        '/datos-negocio': (context) => const DatosNegocioScreen(),
-        '/login': (context) => const LoginScreen(),
-        
-        '/generar': (context) {
-          final negocio = ModalRoute.of(context)!.settings.arguments as Negocio?;
-          if (negocio != null) {
-            return GenerarScreen(negocio: negocio);
-          } else {
-           
-            return const BienvenidaScreen(); 
-          }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NegocioProvider()),
+      ],
+      child: MaterialApp(
+        title: 'BizBloom',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          textTheme: GoogleFonts.montserratTextTheme(),
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const BienvenidaScreen(),
+          '/inicio': (context) => const InicioScreen(),
+          '/calcu': (context) => const CalculadoraScreen(),
+          '/logro': (context) => const LogroScreen(),
+          '/intento': (context) => const IntentoScreen(),
+          '/motivo': (context) => const MotivoScreen(),
+          '/hablemos': (context) => const HablemosScreen(),
+          '/datos': (context) => const DatosProductoScreen(),
+          '/datos-negocio': (context) => const DatosNegocioScreen(),
+          '/login': (context) => const LoginScreen(),
+
+          // Ruta con argumento para GenerarScreen
+          '/generar': (context) {
+            final args = ModalRoute.of(context)!.settings.arguments;
+            if (args != null && args is Negocio) {
+              return GenerarScreen(negocio: args);
+            } else {
+              return const BienvenidaScreen();
+            }
+          },
+
+          // Ruta con argumento para DetalleNegocioScreen
+           '/detalleNegocio': (context) => const DetalleNegocioScreen(),
         },
-      },
+      ),
     );
   }
 }

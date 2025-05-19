@@ -31,7 +31,6 @@ class _LogroScreenState extends State<LogroScreen> {
       mainAxisAlignment: MainAxisAlignment.center, 
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-         const SizedBox(height: 100),
          Text(
           textAlign: TextAlign.center,
           '¿Qué esperas lograr?\n',
