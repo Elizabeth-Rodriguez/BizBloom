@@ -42,12 +42,16 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Qué son los costos fijos mensuales?'),
+        backgroundColor: Colors.white, 
+        title: const Text('¿Qué son los costos fijos mensuales?',
+        style: TextStyle(color: Colors.brown),),
         content: const Text(
-            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.'),
+            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.',
+        style: TextStyle(color: Colors.brown),),
         actions: [
           TextButton(
-            child: const Text('Entendido'),
+            child: const Text('Entendido',
+        style: TextStyle(color: Colors.brown),),
             onPressed: () => Navigator.of(context).pop(),
           )
         ],

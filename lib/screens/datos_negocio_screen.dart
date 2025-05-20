@@ -17,21 +17,32 @@ class _DatosNegocioScreenState extends State<DatosNegocioScreen> {
   final TextEditingController descripcionController = TextEditingController();
   final TextEditingController nombreProductoController = TextEditingController();
 
-  void mostrarInfoCampo() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('¿Qué es el campo?'),
-        content: const Text('Se refiere al área económica o sector donde se desarrolla tu negocio, como panadería, moda, tecnología, etc.'),
-        actions: [
-          TextButton(
-            child: const Text('Entendido'),
-            onPressed: () => Navigator.of(context).pop(),
-          )
-        ],
+ void mostrarInfoCampo() {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white, 
+      title: const Text(
+        '¿Qué es el campo?',
+        style: TextStyle(color: Colors.brown),
       ),
-    );
-  }
+      content: const Text(
+        'Se refiere al área económica o sector donde se desarrolla tu negocio, como panadería, moda, tecnología, etc.',
+        style: TextStyle(color: Colors.brown), 
+      ),
+      actions: [
+        TextButton(
+          child: const Text(
+            'Entendido',
+            style: TextStyle(color: Colors.brown), 
+          ),
+          onPressed: () => Navigator.of(context).pop(),
+        )
+      ],
+    ),
+  );
+}
+
 
   void continuar() {
     if (nombreNegocioController.text.isEmpty ||

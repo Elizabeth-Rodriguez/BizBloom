@@ -20,6 +20,9 @@ import 'screens/datos_negocio_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/generar_screen.dart';
 import 'screens/detalle_negocio.dart';
+//import 'package:firebase_core/firebase_core.dart';
+
+
 
 Future<Map<String, dynamic>> loadConfig() async {
   try {
@@ -37,6 +40,7 @@ Future<Map<String, dynamic>> loadConfig() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadConfig();
+  //await Firebase.initializeApp();
   runApp(const BizBloomApp());
 }
 

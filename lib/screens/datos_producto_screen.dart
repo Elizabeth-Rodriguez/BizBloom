@@ -52,12 +52,16 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Qué es el margen de ganancia?'),
+        backgroundColor: Colors.white, 
+        title: const Text('¿Qué es el margen de ganancia?',
+        style: TextStyle(color: Colors.brown),),
         content: const Text(
-            'Es el porcentaje adicional que se suma al costo de producción para determinar el precio de venta.'),
+            'Es el porcentaje adicional que se suma al costo de producción para determinar el precio de venta.',
+        style: TextStyle(color: Colors.brown),),
         actions: [
           TextButton(
-            child: const Text('Entendido'),
+            child: const Text('Entendido',
+        style: TextStyle(color: Colors.brown),),
             onPressed: () => Navigator.of(context).pop(),
           )
         ],
@@ -69,12 +73,16 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('¿Qué son los costos fijos mensuales?'),
+        backgroundColor: Colors.white, 
+        title: const Text('¿Qué son los costos fijos mensuales?',
+        style: TextStyle(color: Colors.brown),),
         content: const Text(
-            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes.'),
+            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes.',
+        style: TextStyle(color: Colors.brown),),
         actions: [
           TextButton(
-            child: const Text('Entendido'),
+            child: const Text('Entendido',
+        style: TextStyle(color: Colors.brown),),
             onPressed: () => Navigator.of(context).pop(),
           )
         ],

@@ -108,24 +108,27 @@ Widget build(BuildContext context) {
               } else {
                 final negociosGuardados = snapshot.data!;
                 return RefreshIndicator(
-                  onRefresh: _refrescarNegocios,
-                  child: ListView.builder(
-                    itemCount: negociosGuardados.length,
-                    itemBuilder: (context, index) {
-                      final negocio = negociosGuardados[index];
-                      return NegocioCard(
-                        negocio: negocio,
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            '/detalleNegocio',
-                            arguments: negocio,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                );
+  onRefresh: _refrescarNegocios,
+  backgroundColor: Colors.black, 
+  color: Colors.white, 
+  child: ListView.builder(
+    itemCount: negociosGuardados.length,
+    itemBuilder: (context, index) {
+      final negocio = negociosGuardados[index];
+      return NegocioCard(
+        negocio: negocio,
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            '/detalleNegocio',
+            arguments: negocio,
+          );
+        },
+      );
+    },
+  ),
+);
+
               }
             },
           ),
