@@ -20,8 +20,8 @@ import 'screens/datos_negocio_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/generar_screen.dart';
 import 'screens/detalle_negocio.dart';
-//import 'package:firebase_core/firebase_core.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'screens/olvide_contrasena_screen.dart';
 
 
 Future<Map<String, dynamic>> loadConfig() async {
@@ -40,7 +40,7 @@ Future<Map<String, dynamic>> loadConfig() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadConfig();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const BizBloomApp());
 }
 
@@ -72,6 +72,8 @@ class BizBloomApp extends StatelessWidget {
           '/datos': (context) => const DatosProductoScreen(),
           '/datos-negocio': (context) => const DatosNegocioScreen(),
           '/login': (context) => const LoginScreen(),
+          '/olvide': (context) => const OlvideContrasenaScreen(),
+          
 
           // Ruta con argumento para GenerarScreen
           '/generar': (context) {

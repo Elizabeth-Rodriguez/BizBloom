@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "455735825896",
+    "project_id": "bizbloom-36757",
+    "storage_bucket": "bizbloom-36757.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455735825896:android:86bd6228ac9e64414c405d",
+        "android_client_info": {
+          "package_name": "com.example.bizbloom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEWfem0VLX4YmQSdz8MNL7BEnS0dNfdho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
