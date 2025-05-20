@@ -118,8 +118,10 @@ class _InformeScreenState extends State<InformeScreen> {
                                   fontWeight: FontWeight.bold)),
                           const SizedBox(height: 10),
                           Text(
-                              'Punto de Equilibrio: ${puntoEquilibrio.toStringAsFixed(2)} unidades',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
+  'Punto de Equilibrio: ${puntoEquilibrio.round()} unidades',
+  style: GoogleFonts.montserrat(fontSize: fontSize),
+),
+
                         ],
                       ),
                     ),

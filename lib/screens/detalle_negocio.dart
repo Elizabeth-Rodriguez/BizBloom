@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/negocio.dart';
 import '../widgets/base_screen.dart';
 import '../widgets/equilibrio_chart.dart';
+import '../helpers/db_helper.dart'; // Asegúrate de importar correctamente
 
 class DetalleNegocioScreen extends StatelessWidget {
   const DetalleNegocioScreen({Key? key}) : super(key: key);
@@ -10,10 +11,7 @@ class DetalleNegocioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final negocio = ModalRoute.of(context)!.settings.arguments as Negocio;
-
     final puntoEquilibrio = negocio.calcularPuntoEquilibrioUnidades();
-
-    // Asumo que tienes estos métodos/calculados:
     final costoTotal = negocio.calcularCostoTotal();
     final precioVenta = negocio.calcularPrecioVenta();
 
@@ -42,7 +40,6 @@ class DetalleNegocioScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-
             Card(
               elevation: 0,
               shape: RoundedRectangleBorder(
@@ -75,7 +72,8 @@ class DetalleNegocioScreen extends StatelessWidget {
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
-                    Text('Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
+                    Text(
+                        'Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     const Divider(height: 30, thickness: 1),
                     Text('Materiales',
@@ -92,106 +90,87 @@ class DetalleNegocioScreen extends StatelessWidget {
                         final material = negocio.materiales[index];
                         return Text(
                           '${material.nombre} - Cantidad: ${material.cantidad}, Precio unitario: \$${material.costoUnitario.toStringAsFixed(2)}',
-                          style: GoogleFonts.montserrat(fontSize: fontSize),
+                          style:
+                              GoogleFonts.montserrat(fontSize: fontSize),
                         );
                       },
                     ),
                     const Divider(height: 30, thickness: 1),
-                    Text('Análisis Clave',
-                        style: GoogleFonts.montserrat(
-                            fontSize: fontSize, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Punto de Equilibrio: ${puntoEquilibrio.toStringAsFixed(2)} unidades',
-                      style: GoogleFonts.montserrat(fontSize: fontSize),
-                    ),
-                    Text(
-              'Costos fijos: \$${negocio.costosFijos.toStringAsFixed(2)}',
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            Text(
-              'Margen de ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
-              style: GoogleFonts.montserrat(
-                fontSize: 16,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            const SizedBox(height: 16),
+                    Text('Punto de Equilibrio',
+    style: GoogleFonts.montserrat(
+        fontSize: fontSize, fontWeight: FontWeight.bold)),
+const SizedBox(height: 8),
+Text(
+  'Unidades necesarias para alcanzar el punto de equilibrio: ${puntoEquilibrio.ceil()}',
+  style: GoogleFonts.montserrat(fontSize: fontSize),
+),
+const SizedBox(height: 16),
+EquilibrioChart(
+  negocio: negocio,
+  puntoEquilibrio: puntoEquilibrio,
+  chartWidth: MediaQuery.of(context).size.width * 0.8,
+),
+
+
+                    const SizedBox(height: 24),
+                    
                   ],
                 ),
               ),
             ),
+            ElevatedButton.icon(
+  onPressed: () async {
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white, 
+        title: const Text("¿Eliminar negocio?",
+        style: TextStyle(color: Colors.brown),),
+        content: const Text(
+            "¿Deseas eliminar este negocio? Esta acción no se puede deshacer.",
+        style: TextStyle(color: Colors.brown),),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text("Cancelar",
+        style: TextStyle(color: Colors.brown),),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            child: const Text("Eliminar",
+        style: TextStyle(color: Colors.red),),
+          ),
+        ],
+      ),
+    );
 
-            const SizedBox(height: 32),
-            Center(
-  child: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Text(
-        'Punto de Equilibrio',
-        style: GoogleFonts.montserrat(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(width: 6),
-      IconButton(
-        icon: const Icon(Icons.info_outline, color: Colors.black),
-        iconSize: 20,
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text('¿Qué es el Punto de Equilibrio?',
-                    style: GoogleFonts.montserrat(fontWeight: FontWeight.bold)),
-                content: Text(
-                  'El punto de equilibrio es la cantidad mínima de unidades que debes vender para cubrir tus costos sin perder dinero.',
-                  style: GoogleFonts.montserrat(),
-                ),
-                actions: [
-                  TextButton(
-                    child: Text('Cerrar', style: GoogleFonts.montserrat()),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ],
-              );
-            },
-          );
-        },
-      ),
-    ],
+    if (confirm == true) {
+      await DBHelper().eliminarNegocioPorId(negocio.id!);
+      Navigator.pop(context); // Regresar a la pantalla anterior
+    }
+  },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.white, // Fondo blanco
+    foregroundColor: Colors.red, // Texto rojo
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12),
+      side: const BorderSide(color: Colors.red, width: 1), // Borde rojo
+    ),
   ),
-),
+  icon: const Icon(Icons.delete, color: Colors.red), // Icono rojo
+  label: const Text(
+    "Eliminar negocio",
+    style: TextStyle(color: Colors.red), // Texto rojo
+  ),
+)
 
-
-            EquilibrioChart(
-              puntoEquilibrio: puntoEquilibrio,
-              chartWidth: MediaQuery.of(context).size.width,
-              negocio: negocio,
-            ),   
           ],
         ),
       ),
     );
   }
-
-  Widget _buildSectionTitle(String title) {
-    return Text(
-      title,
-      style: GoogleFonts.montserrat(
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-        color: const Color(0xFFD88B6F),
-      ),
-    );
-  }
 }
+
 
 /**import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

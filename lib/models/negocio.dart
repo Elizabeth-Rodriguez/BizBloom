@@ -21,27 +21,34 @@ class Negocio {
     required this.margenGanancia,
   });
 
-  // MÉTODOS DE CÁLCULO
+  // COSTO VARIABLE UNITARIO (suma solo materiales)
+  double calcularCostoVariableUnitario() {
+    return materiales.fold(
+      0.0, (suma, m) => suma + (m.cantidad * m.costoUnitario));
+  }
+
+  // PRECIO DE VENTA UNITARIO (sobre costo variable, sin incluir costos fijos)
+  double calcularPrecioVenta() {
+    double costoVariable = calcularCostoVariableUnitario();
+    return costoVariable + (costoVariable * (margenGanancia / 100));
+  }
+
+  // COSTO TOTAL (materiales + costos fijos, si quieres saber el total)
   double calcularCostoTotal() {
-    double costoMateriales = materiales.fold(
-        0.0, (suma, m) => suma + (m.cantidad * m.costoUnitario));
+    double costoMateriales = calcularCostoVariableUnitario();
     return costoMateriales + costosFijos;
   }
 
-  double calcularPrecioVenta() {
-    double costo = calcularCostoTotal();
-    return costo + (costo * (margenGanancia / 100));
-  }
-
-  double calcularCostoVariableUnitario() {
-    return materiales.fold(
-        0.0, (suma, m) => suma + (m.cantidad * m.costoUnitario));
-  }
-
+  // PUNTO DE EQUILIBRIO EN UNIDADES
   double calcularPuntoEquilibrioUnidades() {
     double costoVariable = calcularCostoVariableUnitario();
     double precioVenta = calcularPrecioVenta();
-    return costosFijos / (precioVenta - costoVariable);
+    double margenContribucion = precioVenta - costoVariable;
+    if (margenContribucion <= 0) {
+      // Evitar división por cero o negativa (no tiene sentido el punto de equilibrio)
+      return double.infinity;
+    }
+    return costosFijos / margenContribucion;
   }
 
   // COPY WITH

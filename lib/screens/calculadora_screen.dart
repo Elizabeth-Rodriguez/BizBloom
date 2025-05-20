@@ -42,16 +42,21 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Colors.white, 
-        title: const Text('¿Qué son los costos fijos mensuales?',
-        style: TextStyle(color: Colors.brown),),
+        backgroundColor: Colors.white,
+        title: const Text(
+          '¿Qué son los costos fijos mensuales?',
+          style: TextStyle(color: Colors.brown),
+        ),
         content: const Text(
-            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.',
-        style: TextStyle(color: Colors.brown),),
+          'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.',
+          style: TextStyle(color: Colors.brown),
+        ),
         actions: [
           TextButton(
-            child: const Text('Entendido',
-        style: TextStyle(color: Colors.brown),),
+            child: const Text(
+              'Entendido',
+              style: TextStyle(color: Colors.brown),
+            ),
             onPressed: () => Navigator.of(context).pop(),
           )
         ],
@@ -63,12 +68,11 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
     double total = 0.0;
     for (var mat in materiales) {
       double cantidad = double.tryParse(mat['cantidad'].text) ?? 0;
-      double costo =
-          double.tryParse(mat['costo'].text.replaceAll('\$', '')) ?? 0;
+      double costo = double.tryParse(mat['costo'].text.replaceAll('\$', '')) ?? 0;
       total += cantidad * costo;
     }
 
-    double costosFijos = double.tryParse(costoFijoController.text) ?? 0;
+    double costosFijos = double.tryParse(costoFijoController.text.replaceAll('\$', '')) ?? 0;
     total += costosFijos;
 
     setState(() {
@@ -171,81 +175,82 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
       title: 'Calculadora',
       showBack: true,
       showBottomBar: true,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            'Calcula tu costo de producción por unidad',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.montserrat(fontSize: size.width * 0.045),
-          ),
-          const SizedBox(height: 20),
-          ...List.generate(materiales.length, construirMaterial),
-          ElevatedButton.icon(
-            onPressed: agregarMaterial,
-            icon: const Icon(Icons.add, color: Colors.black),
-            label: Text('Agregar Material',
-                style: GoogleFonts.montserrat(color: Colors.black)),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFEBDBA9),
-              shape: const StadiumBorder(),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+      child: SingleChildScrollView(   // <-- Aquí va el scroll
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Calcula tu costo de producción por unidad',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(fontSize: size.width * 0.045),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Costos Fijos Mensuales', style: GoogleFonts.montserrat()),
-              IconButton(
-                icon: const Icon(Icons.info_outline,
-                    size: 20, color: Colors.brown),
-                onPressed: mostrarInfoCostosFijos,
+            const SizedBox(height: 20),
+            ...List.generate(materiales.length, construirMaterial),
+            ElevatedButton.icon(
+              onPressed: agregarMaterial,
+              icon: const Icon(Icons.add, color: Colors.black),
+              label: Text('Agregar Material',
+                  style: GoogleFonts.montserrat(color: Colors.black)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFEBDBA9),
+                shape: const StadiumBorder(),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               ),
-            ],
-          ),
-          const SizedBox(height: 1),
-          TextField(
-            controller: costoFijoController,
-            keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 20),
-            decoration: const InputDecoration(
-              hintText: '\$0.00',
-              hintStyle: TextStyle(fontSize: 20),
-              border: InputBorder.none,
             ),
-            onChanged: (value) {
-              if (!value.startsWith('\$')) {
-                costoFijoController.text = '\$${value.replaceAll('\$', '')}';
-                costoFijoController.selection = TextSelection.fromPosition(
-                  TextPosition(offset: costoFijoController.text.length),
-                );
-              }
-            },
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: calcularCosto,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFEBDBA9),
-              shape: const StadiumBorder(),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Costos Fijos Mensuales', style: GoogleFonts.montserrat()),
+                IconButton(
+                  icon: const Icon(Icons.info_outline,
+                      size: 20, color: Colors.brown),
+                  onPressed: mostrarInfoCostosFijos,
+                ),
+              ],
             ),
-            child: Text('Calcular',
-                style: GoogleFonts.montserrat(color: Colors.black)),
-          ),
-          const SizedBox(height: 20),
-          Text('El costo unitario de tu producto es de:',
-              style: GoogleFonts.montserrat()),
-          const SizedBox(height: 10),
-          Text(
-            formatear(totalCosto),
-            style: GoogleFonts.montserrat(
-                fontSize: 28, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 30),
-         
-        ],
+            const SizedBox(height: 1),
+            TextField(
+              controller: costoFijoController,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+              decoration: const InputDecoration(
+                hintText: '\$0.00',
+                hintStyle: TextStyle(fontSize: 20),
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                if (!value.startsWith('\$')) {
+                  costoFijoController.text = '\$${value.replaceAll('\$', '')}';
+                  costoFijoController.selection = TextSelection.fromPosition(
+                    TextPosition(offset: costoFijoController.text.length),
+                  );
+                }
+              },
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: calcularCosto,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFEBDBA9),
+                shape: const StadiumBorder(),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              ),
+              child: Text('Calcular',
+                  style: GoogleFonts.montserrat(color: Colors.black)),
+            ),
+            const SizedBox(height: 20),
+            Text('El costo unitario de tu producto es de:',
+                style: GoogleFonts.montserrat()),
+            const SizedBox(height: 10),
+            Text(
+              formatear(totalCosto),
+              style: GoogleFonts.montserrat(
+                  fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
       ),
     );
   }
