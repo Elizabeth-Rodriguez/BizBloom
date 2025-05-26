@@ -45,13 +45,13 @@ class Negocio {
     double precioVenta = calcularPrecioVenta();
     double margenContribucion = precioVenta - costoVariable;
     if (margenContribucion <= 0) {
-      // Evitar división por cero o negativa (no tiene sentido el punto de equilibrio)
+      // Evitar división por cero o negativa 
       return double.infinity;
     }
     return costosFijos / margenContribucion;
   }
 
-  // COPY WITH
+
   Negocio copyWith({
     int? id,
     String? nombreNegocio,

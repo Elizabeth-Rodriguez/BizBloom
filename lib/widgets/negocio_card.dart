@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../models/negocio.dart';
 
 class NegocioCard extends StatelessWidget {
@@ -14,19 +15,19 @@ class NegocioCard extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
-        side: const BorderSide(color: Colors.black, width: 1), // Borde delgado negro
+        side: const BorderSide(color: Colors.black, width: 1), 
       ),
-      color: Colors.white, // Marrón tierra
+      color: Colors.white, 
       child: ListTile(
         title: Text(
           negocio.nombreNegocio,
-          style: const TextStyle(color: Colors.black),
+          style: GoogleFonts.montserrat(color: Colors.black),
         ),
         subtitle: Text(
           negocio.descripcion,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(color: Colors.grey), // Beige claro
+          style: const TextStyle(color: Colors.grey),
         ),
         trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Color(0xFFA1887F)),
         onTap: onTap,

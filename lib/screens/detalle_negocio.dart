@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/negocio.dart';
 import '../widgets/base_screen.dart';
 import '../widgets/equilibrio_chart.dart';
-import '../helpers/db_helper.dart'; // Asegúrate de importar correctamente
+import '../helpers/db_helper.dart'; 
 
 class DetalleNegocioScreen extends StatelessWidget {
   const DetalleNegocioScreen({Key? key}) : super(key: key);
@@ -32,10 +32,10 @@ class DetalleNegocioScreen extends StatelessWidget {
               child: Text(
                 negocio.nombreNegocio,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
+                style: GoogleFonts.libreBodoni (
                   fontSize: titleSize,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Color.fromARGB(1000, 191, 94, 12),
                 ),
               ),
             ),
@@ -75,6 +75,9 @@ class DetalleNegocioScreen extends StatelessWidget {
                     Text(
                         'Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text(
+                        'Margen de Ganancia: \$${negocio.margenGanancia.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
                     const Divider(height: 30, thickness: 1),
                     Text('Materiales',
                         style: GoogleFonts.montserrat(
@@ -96,7 +99,7 @@ class DetalleNegocioScreen extends StatelessWidget {
                       },
                     ),
                     const Divider(height: 30, thickness: 1),
-                    Text('Punto de Equilibrio',
+                    Text('Punto de Equilibrio',//agregar icono de ayuda!
     style: GoogleFonts.montserrat(
         fontSize: fontSize, fontWeight: FontWeight.bold)),
 const SizedBox(height: 8),
@@ -146,21 +149,21 @@ EquilibrioChart(
 
     if (confirm == true) {
       await DBHelper().eliminarNegocioPorId(negocio.id!);
-      Navigator.pop(context); // Regresar a la pantalla anterior
+      Navigator.pop(context);
     }
   },
   style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.white, // Fondo blanco
-    foregroundColor: Colors.red, // Texto rojo
+    backgroundColor: Colors.white,
+    foregroundColor: Colors.red, 
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(12),
-      side: const BorderSide(color: Colors.red, width: 1), // Borde rojo
+      side: const BorderSide(color: Colors.red, width: 1), 
     ),
   ),
-  icon: const Icon(Icons.delete, color: Colors.red), // Icono rojo
+  icon: const Icon(Icons.delete, color: Colors.red), 
   label: const Text(
     "Eliminar negocio",
-    style: TextStyle(color: Colors.red), // Texto rojo
+    style: TextStyle(color: Colors.red), 
   ),
 )
 
