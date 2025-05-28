@@ -56,6 +56,7 @@ class _OlvideContrasenaScreenState extends State<OlvideContrasenaScreen> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Ingresa tu correo registrado y te enviaremos un enlace para restablecer tu contraseña.',
@@ -64,27 +65,45 @@ class _OlvideContrasenaScreenState extends State<OlvideContrasenaScreen> {
               const SizedBox(height: 24),
               TextFormField(
                 controller: emailController,
+                cursorColor: Colors.black,
+                style: GoogleFonts.montserrat(color: Colors.black),
                 decoration: InputDecoration(
                   labelText: 'Correo electrónico',
-                  border: const OutlineInputBorder(),
+                  labelStyle: GoogleFonts.montserrat(color: Colors.black),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(color:Color(0xFF8B5E3C)),
+                  ),
                 ),
                 validator: (value) =>
                     value == null || value.isEmpty ? 'Ingresa tu correo' : null,
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFEBDBA9),
-                  foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFEBDBA9),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
+                  onPressed: loading ? null : resetPassword,
+                  child: loading
+                      ? const SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : Text(
+                          'Enviar correo',
+                          style: GoogleFonts.montserrat(fontWeight: FontWeight.w500),
+                        ),
                 ),
-                onPressed: loading ? null : resetPassword,
-                child: loading
-                    ? const CircularProgressIndicator()
-                    : const Text('Enviar correo'),
               ),
             ],
           ),

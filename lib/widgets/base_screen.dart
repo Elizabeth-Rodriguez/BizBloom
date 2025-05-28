@@ -7,6 +7,7 @@ class BaseScreen extends StatelessWidget {
   final bool showBack;
   final bool showBottomBar;
   final bool showSkip; // Botón "Omitir"
+  final List<Widget>? actions;
 
   const BaseScreen({
     super.key,
@@ -15,6 +16,7 @@ class BaseScreen extends StatelessWidget {
     this.showBack = false,
     this.showBottomBar = false,
     this.showSkip = false,
+    this.actions,
   });
 
   @override
@@ -35,16 +37,18 @@ class BaseScreen extends StatelessWidget {
                 onPressed: () => Navigator.pop(context),
               )
             : null,
-        actions: showSkip
-            ? [
-                IconButton(
-                  icon: const Icon(Icons.skip_next, color: Colors.black),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/hablemos');
-                  },
-                ),
-              ]
-            : null,
+        actions: actions ??
+    (showSkip
+        ? [
+            IconButton(
+              icon: const Icon(Icons.skip_next, color: Colors.black),
+              onPressed: () {
+                Navigator.pushNamed(context, '/hablemos');
+              },
+            ),
+          ]
+        : null),
+
       ),
 
       // BODY sin SingleChildScrollView para evitar conflicto con Expanded

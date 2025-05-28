@@ -118,10 +118,8 @@ class _InformeScreenState extends State<InformeScreen> {
                                   fontWeight: FontWeight.bold)),
                           const SizedBox(height: 10),
                           Text(
-  'Punto de Equilibrio: ${puntoEquilibrio.round()} unidades',
-  style: GoogleFonts.montserrat(fontSize: fontSize),
-),
-
+                            'Punto de Equilibrio: ${puntoEquilibrio.toStringAsFixed(2)} unidades',//Ya no redondea!
+                                 style: GoogleFonts.montserrat(fontSize: fontSize)),
                         ],
                       ),
                     ),
@@ -130,12 +128,15 @@ class _InformeScreenState extends State<InformeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Flexible(child:
                       Text('Gráfica de Punto de Equilibrio',
                           style: GoogleFonts.montserrat(
-                              fontSize: fontSize + 2,
-                              fontWeight: FontWeight.w600)),
+                              fontSize:fontSize,
+                              fontWeight: FontWeight.w600)), 
+                              ),
+                    
                       IconButton(
-                        icon: const Icon(Icons.info_outline),
+                        icon: const Icon(Icons.info_outline, color: Colors.brown,),
                         onPressed: _mostrarInfo,
                       ),
                     ],

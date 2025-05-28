@@ -4,6 +4,8 @@ import '../widgets/base_screen.dart';
 import '../widgets/negocio_card.dart';
 import '../helpers/db_helper.dart';
 import '../models/negocio.dart';
+import 'package:firebase_auth/firebase_auth.dart';       // MODIFICADO
+import 'package:google_sign_in/google_sign_in.dart';
 
 class InicioScreen extends StatefulWidget {
   const InicioScreen({Key? key}) : super(key: key);
@@ -28,6 +30,44 @@ class _InicioScreenState extends State<InicioScreen> {
     });
   }
 
+  void _confirmarCierreSesion(BuildContext context) async {
+  final confirmacion = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      backgroundColor: Colors.white,
+      title: const Text('Cerrar sesión',
+      style: TextStyle(color: Colors.brown),
+      ),
+      content: const Text(
+        '¿Estás seguro de que deseas cerrar sesión?',
+        style: TextStyle(color: Colors.black),
+        ),
+      actions: [
+        TextButton(
+          child: const Text('Cancelar',
+          style: TextStyle(color: Colors.brown),
+          ),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+        TextButton(
+          child: const Text('Cerrar sesión',
+          style: TextStyle(color: Colors.brown),
+          ),
+          onPressed: () => Navigator.of(context).pop(true),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmacion == true) {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
+}
+
   @override
 Widget build(BuildContext context) {
   final size = MediaQuery.of(context).size;
@@ -36,6 +76,12 @@ Widget build(BuildContext context) {
     title: 'Inicio',
     showBack: false,
     showBottomBar: true,
+    actions: [
+    IconButton(
+      icon: const Icon(Icons.logout, color: Colors.black),
+      onPressed: () => _confirmarCierreSesion(context), // función que definiremos abajo
+    ),
+  ],
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -108,26 +154,26 @@ Widget build(BuildContext context) {
               } else {
                 final negociosGuardados = snapshot.data!;
                 return RefreshIndicator(
-  onRefresh: _refrescarNegocios,
-  backgroundColor: Colors.black, 
-  color: Colors.white, 
-  child: ListView.builder(
-    itemCount: negociosGuardados.length,
-    itemBuilder: (context, index) {
-      final negocio = negociosGuardados[index];
-      return NegocioCard(
-        negocio: negocio,
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            '/detalleNegocio',
-            arguments: negocio,
-          );
-        },
-      );
-    },
-  ),
-);
+                  onRefresh: _refrescarNegocios,
+                  backgroundColor: Colors.black, 
+                  color: Colors.white, 
+                  child: ListView.builder(
+                    itemCount: negociosGuardados.length,
+                    itemBuilder: (context, index) {
+                      final negocio = negociosGuardados[index];
+                      return NegocioCard(
+                        negocio: negocio,
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            '/detalleNegocio',
+                            arguments: negocio,
+                          );
+                        },
+                      );
+                    },
+                  ),
+                );
 
               }
             },

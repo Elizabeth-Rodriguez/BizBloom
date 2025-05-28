@@ -114,45 +114,73 @@ class _DatosNegocioScreenState extends State<DatosNegocioScreen> {
     );
   }
 
-  Widget campoTexto(String label, TextEditingController controller, {int maxLines = 1}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+Widget campoTexto(String label, TextEditingController controller, {int maxLines = 1}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Text(label, style: GoogleFonts.montserrat()),
         const SizedBox(height: 5),
         TextField(
           controller: controller,
           maxLines: maxLines,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
+          cursorColor: Colors.black,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
             isDense: true,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16), // Borde redondeado
+              borderSide: const BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2), // Al enfocar
+            ),
           ),
-        )
-      ]),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget campoConInfo(String label, TextEditingController controller, VoidCallback onInfoTap) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+Widget campoConInfo(String label, TextEditingController controller, VoidCallback onInfoTap) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Row(
           children: [
             Expanded(child: Text(label, style: GoogleFonts.montserrat())),
             IconButton(
               icon: const Icon(Icons.info_outline, color: Colors.brown),
               onPressed: onInfoTap,
-            )
+            ),
           ],
         ),
         TextField(
           controller: controller,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
+          cursorColor: Colors.black,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
             isDense: true,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.black),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.brown, width: 2),
+            ),
           ),
-        )
-      ]),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
 }

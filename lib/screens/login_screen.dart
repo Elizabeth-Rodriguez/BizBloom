@@ -14,6 +14,18 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacementNamed(context, '/inicio');
+      });
+    }
+  }
 
   void toggleForm() {
     setState(() {
@@ -34,34 +46,57 @@ class _LoginScreenState extends State<LoginScreen> {
           password: passwordController.text.trim(),
         );
       }
-      Navigator.pushReplacementNamed(context, '/inicio');
+
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, '/inicio');
+      }
     } on FirebaseAuthException catch (e) {
       String message;
       switch (e.code) {
         case 'user-not-found':
-          message =
-              'No existe una cuenta con este correo. Verifica o regístrate.';
+          message = 'No existe una cuenta con este correo. Regístrate primero.';
           break;
         case 'wrong-password':
-          message = 'Contraseña incorrecta.';
+          message = 'La contraseña es incorrecta. Inténtalo de nuevo.';
           break;
         case 'email-already-in-use':
           message = 'Este correo ya está registrado.';
           break;
         case 'invalid-email':
-          message = 'Correo inválido.';
+          message = 'El correo ingresado no es válido.';
           break;
         case 'weak-password':
-          message = 'La contraseña es muy débil.';
+          message = 'La contraseña es muy débil. Usa al menos 6 caracteres.';
+          break;
+        case 'too-many-requests':
+          message = 'Demasiados intentos. Intenta más tarde.';
           break;
         default:
-          message = 'Error: ${e.message}';
+          message = 'Ocurrió un error al autenticar. Verifica tus datos e intenta de nuevo.';
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(message)),
       );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Ocurrió un error. Inténtalo más tarde.')),
+      );
     }
+  }
+
+  InputDecoration buildInputDecoration(String label) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: GoogleFonts.montserrat(
+        color: const Color(0xFF8B5E3C),
+      ),
+      border: const OutlineInputBorder(),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2),
+        borderRadius: BorderRadius.circular(4),
+      ),
+    );
   }
 
   @override
@@ -91,27 +126,34 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextFormField(
                             controller: emailController,
-                            decoration: InputDecoration(
-                              labelText: 'Correo electrónico',
-                              labelStyle: GoogleFonts.montserrat(),
-                              border: const OutlineInputBorder(),
-                            ),
+                            decoration: buildInputDecoration('Correo electrónico'),
                             validator: (value) =>
                                 value!.isEmpty ? 'Ingresa tu correo' : null,
+                                cursorColor: Colors.black,
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
                             controller: passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              labelText: 'Contraseña',
-                              labelStyle: GoogleFonts.montserrat(),
-                              border: const OutlineInputBorder(),
+                            obscureText: obscurePassword,
+                            style: const TextStyle(color: Colors.black),
+                            cursorColor: Colors.black,
+                            decoration: buildInputDecoration('Contraseña').copyWith(
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                  color: const Color(0xFF8B5E3C),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    obscurePassword = !obscurePassword;
+                                  });
+                                },
+                              ),
                             ),
-                            validator: (value) => value!.isEmpty
-                                ? 'Ingresa tu contraseña'
-                                : null,
+                            validator: (value) =>
+                                value!.isEmpty ? 'Ingresa tu contraseña' : null,
                           ),
+
                           const SizedBox(height: 24),
                           ElevatedButton(
                             onPressed: () {
@@ -156,7 +198,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               },
                               child: Text(
                                 '¿Olvidaste tu contraseña?',
-                                style: GoogleFonts.montserrat(fontSize: 14),
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 14,
+                                  color: Color.fromARGB(255, 110, 76, 43),
+                                ),
                               ),
                             ),
                         ],

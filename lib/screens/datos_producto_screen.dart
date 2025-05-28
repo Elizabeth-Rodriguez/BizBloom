@@ -123,9 +123,19 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
           const SizedBox(height: 5),
           TextField(
             controller: material['nombre'],
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
+            cursorColor: Colors.black,
+            style: const TextStyle(color: Colors.black),
+            decoration: InputDecoration(
               isDense: true,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Colors.black),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2),
+              ),
             ),
           ),
           const SizedBox(height: 8),
@@ -137,12 +147,23 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
                 child: TextField(
                   controller: material['cantidad'],
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  cursorColor: Colors.black,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
                     hintText: '0.0',
-                    border: OutlineInputBorder(),
                     isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2),
+                    ),
                   ),
                 ),
+
               ),
               const SizedBox(width: 10),
               DropdownButton<String>(
