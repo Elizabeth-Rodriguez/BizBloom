@@ -245,7 +245,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
             const SizedBox(height: 10),
             Text(
               formatear(totalCosto),
-              style: GoogleFonts.montserrat(
+              style: GoogleFonts.poppins(
                   fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),

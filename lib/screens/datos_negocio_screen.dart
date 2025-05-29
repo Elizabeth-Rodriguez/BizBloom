@@ -24,7 +24,7 @@ class _DatosNegocioScreenState extends State<DatosNegocioScreen> {
       backgroundColor: Colors.white, 
       title: const Text(
         '¿Qué es el campo?',
-        style: TextStyle(color: Colors.brown),
+        style: TextStyle(color: Color(0xFF795548)),
       ),
       content: const Text(
         'Se refiere al área económica o sector donde se desarrolla tu negocio, como panadería, moda, tecnología, etc.',

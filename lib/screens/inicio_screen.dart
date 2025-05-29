@@ -89,7 +89,7 @@ Widget build(BuildContext context) {
         Text(
           'Encamina tu\nnegocio',
           textAlign: TextAlign.center,
-          style: GoogleFonts.montserrat(
+          style: GoogleFonts.poppins(
             fontSize: size.width * 0.08,
             fontWeight: FontWeight.bold,
           ),
@@ -130,7 +130,7 @@ Widget build(BuildContext context) {
         const SizedBox(height: 40),
         Text(
           'Historial de negocios',
-          style: GoogleFonts.montserrat(
+          style: GoogleFonts.poppins(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

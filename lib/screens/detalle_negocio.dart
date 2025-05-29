@@ -15,6 +15,26 @@ class DetalleNegocioScreen extends StatelessWidget {
     final costoTotal = negocio.calcularCostoTotal();
     final precioVenta = negocio.calcularPrecioVenta();
 
+void _mostrarInfo() {
+  showDialog(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      
+      backgroundColor: Colors.white,
+      title: const Text('¿Qué es el Punto de Equilibrio?', style: TextStyle(color: Colors.brown),),
+      content: const Text(
+          'El Punto de Equilibrio es la cantidad mínima de unidades que debes vender para cubrir tus costos sin obtener pérdidas ni ganancias.',),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(),
+          child: const Text('Cerrar', style: TextStyle(color: Colors.brown),),
+        ),
+      ],
+    ),
+  );
+}
+
+
     const double titleSize = 28;
     const double fontSize = 16;
 
@@ -32,10 +52,10 @@ class DetalleNegocioScreen extends StatelessWidget {
               child: Text(
                 negocio.nombreNegocio,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.libreBodoni (
+                style: GoogleFonts.poppins (
                   fontSize: titleSize,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(1000, 191, 94, 12),
+                  color: Color(0xFFBF5E0C),
                 ),
               ),
             ),
@@ -88,7 +108,7 @@ class DetalleNegocioScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: negocio.materiales.length,
                       separatorBuilder: (_, __) =>
-                          const Divider(height: 12, color: Colors.grey),
+                          const Divider(height: 12, color: Color(0xFF9E9E9E)),
                       itemBuilder: (context, index) {
                         final material = negocio.materiales[index];
                         return Text(
@@ -99,12 +119,26 @@ class DetalleNegocioScreen extends StatelessWidget {
                       },
                     ),
                     const Divider(height: 30, thickness: 1),
-                    Text('Punto de Equilibrio',//agregar icono de ayuda!
-    style: GoogleFonts.montserrat(
-        fontSize: fontSize, fontWeight: FontWeight.bold)),
+                      Row(
+  children: [
+    Text(
+      'Punto de Equilibrio',
+      style: GoogleFonts.montserrat(
+        fontSize: fontSize,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
+    const SizedBox(width: 8),
+    GestureDetector(
+      onTap: _mostrarInfo,
+      child: const Icon(Icons.info_outline, color: Color(0xFF795548)),
+    ),
+  ],
+),
+
 const SizedBox(height: 8),
 Text(
-  'Unidades necesarias para alcanzar el punto de equilibrio: ${puntoEquilibrio.ceil()}',
+  'Unidades necesarias para alcanzar el punto de equilibrio: ${puntoEquilibrio.toStringAsFixed(2)}',
   style: GoogleFonts.montserrat(fontSize: fontSize),
 ),
 const SizedBox(height: 16),
@@ -160,7 +194,7 @@ EquilibrioChart(
       side: const BorderSide(color: Colors.red, width: 1), 
     ),
   ),
-  icon: const Icon(Icons.delete, color: Colors.red), 
+  icon: const Icon(Icons.delete, color: Color(0xFFF44336)), 
   label: const Text(
     "Eliminar negocio",
     style: TextStyle(color: Colors.red), 
