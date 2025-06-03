@@ -28,9 +28,14 @@ class Negocio {
   }
 
   // PRECIO DE VENTA UNITARIO (sobre costo variable, sin incluir costos fijos)
-  double calcularPrecioVenta() {
+  double CalcularPrecioUsuario() {
     double costoVariable = calcularCostoVariableUnitario();
     return costoVariable + (costoVariable * (margenGanancia / 100));
+  }
+
+double CalcularPrecioSugerido() {
+    double costoVariable = calcularCostoVariableUnitario();
+    return costoVariable + (costoVariable * 2);
   }
 
   // COSTO TOTAL (materiales + costos fijos, si quieres saber el total)
@@ -42,15 +47,22 @@ class Negocio {
   // PUNTO DE EQUILIBRIO EN UNIDADES
   double calcularPuntoEquilibrioUnidades() {
     double costoVariable = calcularCostoVariableUnitario();
-    double precioVenta = calcularPrecioVenta();
+    double precioVenta = CalcularPrecioUsuario();
     double margenContribucion = precioVenta - costoVariable;
     if (margenContribucion <= 0) {
       // Evitar división por cero o negativa 
-      return double.infinity;
+      return 0;
     }
     return costosFijos / margenContribucion;
   }
 
+double calcularGananciaPesos() {
+  return CalcularPrecioUsuario() - calcularCostoVariableUnitario();
+}
+
+double calcularGananciaSugerida() {
+  return CalcularPrecioSugerido() - calcularCostoVariableUnitario();
+}
 
   Negocio copyWith({
     int? id,

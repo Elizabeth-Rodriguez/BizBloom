@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../widgets/base_screen.dart';
-import '../models/negocio.dart'; // Importante
+import '../models/negocio.dart'; 
 
 class DatosProductoScreen extends StatefulWidget {
   const DatosProductoScreen({super.key});
@@ -56,8 +56,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
         title: const Text('¿Qué es el margen de ganancia?',
         style: TextStyle(color: Colors.brown),),
         content: const Text(
-            'Es el porcentaje adicional que se suma al costo de producción para determinar el precio de venta.',
-        style: TextStyle(color: Colors.brown),),
+            'Es el porcentaje adicional que se suma al costo de producción para determinar el precio de venta.',),
         actions: [
           TextButton(
             child: const Text('Entendido',
@@ -77,8 +76,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
         title: const Text('¿Qué son los costos fijos mensuales?',
         style: TextStyle(color: Colors.brown),),
         content: const Text(
-            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes.',
-        style: TextStyle(color: Colors.brown),),
+            'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes.'),
         actions: [
           TextButton(
             child: const Text('Entendido',
@@ -183,7 +181,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Text('Costo Unitario de Material',
+          Text('Costo Unitario del Material',
               style: GoogleFonts.montserrat()),
           const SizedBox(height: 5),
           TextField(
@@ -280,7 +278,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
         child: Column(
           children: [
             Text(
-              'Ingresa los materiales utilizados.',
+              'Ingresa los materiales utilizados por unidad.',
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(fontSize: size.width * 0.045),
             ),
@@ -311,7 +309,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Costos Fijos Mensuales',
+                Text('Costos Fijos por unidad',
                     style: GoogleFonts.montserrat()),
                 IconButton(
                   icon: const Icon(Icons.info_outline,

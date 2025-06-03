@@ -14,13 +14,9 @@ class HablemosScreen extends StatelessWidget {
       showBack: false,
       showBottomBar: false,
       child: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: size.width * 0.08,
-            vertical: size.height * 0.1,
-          ),
           child: Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center, 
+          crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'Hablemos de tu negocio',
@@ -42,7 +38,7 @@ class HablemosScreen extends StatelessWidget {
 
               // Imagen debajo del texto
               Image.asset(
-                'assets/images/graphic.png', // Asegúrate de que el path sea correcto y esté en pubspec.yaml
+                'assets/images/graphic.png', 
                 width: size.width * 0.7,
                 height: size.height * 0.25,
                 fit: BoxFit.contain,
@@ -72,9 +68,8 @@ class HablemosScreen extends StatelessWidget {
                 ),
               ),
             ],
+          )
           ),
-        ),
-      ),
     );
   }
 }

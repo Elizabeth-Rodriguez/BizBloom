@@ -12,8 +12,10 @@ class DetalleNegocioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final negocio = ModalRoute.of(context)!.settings.arguments as Negocio;
     final puntoEquilibrio = negocio.calcularPuntoEquilibrioUnidades();
-    final costoTotal = negocio.calcularCostoTotal();
-    final precioVenta = negocio.calcularPrecioVenta();
+    final costoTotal = negocio.calcularCostoVariableUnitario();
+    final precioVenta = negocio.CalcularPrecioUsuario();
+    final ganancia = negocio.calcularGananciaPesos();
+    final precioSugerido = negocio.CalcularPrecioSugerido();
 
 void _mostrarInfo() {
   showDialog(
@@ -88,36 +90,80 @@ void _mostrarInfo() {
                     const SizedBox(height: 10),
                     Text('Producto: ${negocio.nombreProducto}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
-                    Text('Costo: \$${costoTotal.toStringAsFixed(2)}',
-                        style: GoogleFonts.montserrat(fontSize: fontSize)),
-                    Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
-                        style: GoogleFonts.montserrat(fontSize: fontSize)),
-                    Text(
+                        Text(
                         'Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     Text(
-                        'Margen de Ganancia: \$${negocio.margenGanancia.toStringAsFixed(2)}',
+                        'Ganancia: \$${negocio.calcularGananciaPesos()}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
-                    const Divider(height: 30, thickness: 1),
-                    Text('Materiales',
+                    Text('Costo unitario: \$${costoTotal.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+
+                        const Divider(height: 30, thickness: 1),//SUGERENCIA
+
+                    Text('Sugerencia',
                         style: GoogleFonts.montserrat(
-                            fontSize: fontSize, fontWeight: FontWeight.bold)),
+                            fontSize: fontSize, color: Colors.grey, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 10),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: negocio.materiales.length,
-                      separatorBuilder: (_, __) =>
-                          const Divider(height: 12, color: Color(0xFF9E9E9E)),
-                      itemBuilder: (context, index) {
-                        final material = negocio.materiales[index];
-                        return Text(
-                          '${material.nombre} - Cantidad: ${material.cantidad}, Precio unitario: \$${material.costoUnitario.toStringAsFixed(2)}',
-                          style:
-                              GoogleFonts.montserrat(fontSize: fontSize),
-                        );
-                      },
-                    ),
+                    Text(
+                        'Margen de Ganancia: 200%',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text(
+                        'Ganancia: \$${negocio.calcularGananciaSugerida()}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text('Precio Sugerido: \$${precioSugerido.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+
+                    
+                    const Divider(height: 30, thickness: 1),
+                    Text(
+  'Materiales',
+  style: GoogleFonts.montserrat(
+    fontSize: fontSize + 2,
+    fontWeight: FontWeight.bold,
+    color: Colors.brown[800],
+  ),
+),
+const SizedBox(height: 12),
+ListView.separated(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+  itemCount: negocio.materiales.length,
+  separatorBuilder: (_, __) => Divider(
+    height: 16,
+    thickness: 1,
+    color: Colors.brown[200],
+  ),
+  itemBuilder: (context, index) {
+    final material = negocio.materiales[index];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+         Text(
+            '-${material.nombre}',
+            style: GoogleFonts.montserrat(
+              fontSize: fontSize,
+              fontWeight: FontWeight.normal,
+              color: Colors.black87,
+            ),
+          ),
+        
+        const SizedBox(height: 4),
+        Text(
+          'Cantidad: ${material.cantidad} ${material.unidad}',
+          style: GoogleFonts.montserrat(fontSize: fontSize),
+        ),
+        Text(
+          'Precio unitario: \$${material.costoUnitario.toStringAsFixed(2)}',
+          style: GoogleFonts.montserrat(fontSize: fontSize),
+        ),
+      ],
+    );
+  },
+),
+
                     const Divider(height: 30, thickness: 1),
                       Row(
   children: [

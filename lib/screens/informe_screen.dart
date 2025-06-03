@@ -28,13 +28,14 @@ class _InformeScreenState extends State<InformeScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('¿Qué es el Punto de Equilibrio?'),
+        backgroundColor: Colors.white,
+        title: const Text('¿Qué es el Punto de Equilibrio?', style: TextStyle(color: Colors.brown),),
         content: const Text(
             'El Punto de Equilibrio es la cantidad mínima de unidades que debes vender para cubrir tus costos sin obtener pérdidas ni ganancias.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cerrar'),
+            child: const Text('Cerrar', style: TextStyle(color: Colors.brown)),
           ),
         ],
       ),
@@ -43,9 +44,11 @@ class _InformeScreenState extends State<InformeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double costoTotal = negocio.calcularCostoTotal();
-    double precioVenta = negocio.calcularPrecioVenta();
+    double costoUnitario= negocio.calcularCostoVariableUnitario();
+    double precioVenta = negocio.CalcularPrecioUsuario();
     double puntoEquilibrio = negocio.calcularPuntoEquilibrioUnidades();
+    double precioSugerido = negocio.CalcularPrecioSugerido();
+   
 
     return BaseScreen(
       title: 'Informe',
@@ -88,30 +91,53 @@ class _InformeScreenState extends State<InformeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Tu negocio',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: fontSize,
-                                  fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 8),
-                          Text('Campo: ${negocio.campo}',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
-                          Text('Descripción: ${negocio.descripcion}',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text('Tu negocio',
+                        style: GoogleFonts.montserrat(
+                          fontSize: fontSize, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    Text('Campo: ${negocio.campo}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text('Descripción: ${negocio.descripcion}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                        const Divider(height: 30, thickness: 1),     
+
+                    Text('Tu Producto',
+                        style: GoogleFonts.montserrat(
+                            fontSize: fontSize, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    Text('Producto: ${negocio.nombreProducto}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                        Text(
+                        'Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text(
+                        'Ganancia: \$${negocio.calcularGananciaPesos()}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+
+                    Text('Costo unitario: \$${costoUnitario.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                        
+                    
+                    Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+
+                    const Divider(height: 30, thickness: 1),//SUGERENCIA
+
+                    Text('Sugerencia',
+                        style: GoogleFonts.montserrat(
+                            fontSize: fontSize, color: Colors.grey, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    Text(
+                        'Margen de Ganancia: 200%',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text(
+                        'Ganancia: \$${negocio.calcularGananciaSugerida()}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+                    Text('Precio Sugerido: \$${precioSugerido.toStringAsFixed(2)}',
+                        style: GoogleFonts.montserrat(fontSize: fontSize)),
+
                           const Divider(height: 30, thickness: 1),
-                          Text('Tu Producto',
-                              style: GoogleFonts.montserrat(
-                                  fontSize: fontSize,
-                                  fontWeight: FontWeight.bold)),
-                          const SizedBox(height: 10),
-                          Text('Producto: ${negocio.nombreProducto}',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
-                          Text('Costo: \$${costoTotal.toStringAsFixed(2)}',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
-                          Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
-                          Text('Margen de Ganancia: ${negocio.margenGanancia}%',
-                              style: GoogleFonts.montserrat(fontSize: fontSize)),
-                          const Divider(height: 30, thickness: 1),
+                          
                           Text('Análisis Clave',
                               style: GoogleFonts.montserrat(
                                   fontSize: fontSize,
@@ -151,7 +177,6 @@ class _InformeScreenState extends State<InformeScreen> {
                   Center(
                     child: ElevatedButton.icon(
                       onPressed: () async {
-                        await DBHelper().insertarNegocio(negocio);
                         Navigator.pushNamed(context,'/inicio');
                       },
                       icon: const Icon(Icons.check),
