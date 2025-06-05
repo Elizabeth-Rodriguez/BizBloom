@@ -87,6 +87,30 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
       ),
     );
   }
+  void mostrarcostomaterial() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text(
+          '¿Qué es el costo unitario de material?',
+          style: TextStyle(color: Colors.brown),
+        ),
+        content: const Text(
+          'Es el costo por unidad de medida utilizada, ya sea por kilo, litro o unidad'
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              'Entendido',
+              style: TextStyle(color: Colors.brown),
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget construirMaterial(int index) {
     final material = materiales[index];
@@ -166,7 +190,7 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
               const SizedBox(width: 10),
               DropdownButton<String>(
                 value: material['unidad'],
-                items: ['g', 'kg', 'unidad'].map((String unidad) {
+                items: ['L', 'kg', 'unidad'].map((String unidad) {
                   return DropdownMenuItem<String>(
                     value: unidad,
                     child: Text(unidad),
@@ -180,10 +204,17 @@ class _DatosProductoScreenState extends State<DatosProductoScreen> {
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text('Costo Unitario del Material',
-              style: GoogleFonts.montserrat()),
-          const SizedBox(height: 5),
+          Row(
+              children: [
+                Text('Costo Unitario de Material', style: GoogleFonts.montserrat()),
+                IconButton(
+                  icon: const Icon(Icons.info_outline,
+                      size: 20, color: Colors.brown),
+                  onPressed: mostrarcostomaterial,
+                ),
+              ],
+            ),
+          const SizedBox(height: 2),
           TextField(
             controller: material['costo'],
             keyboardType: TextInputType.number,

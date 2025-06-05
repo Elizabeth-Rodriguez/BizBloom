@@ -118,15 +118,10 @@ void _mostrarInfo() {
 
                     
                     const Divider(height: 30, thickness: 1),
-                    Text(
-  'Materiales',
-  style: GoogleFonts.montserrat(
-    fontSize: fontSize + 2,
-    fontWeight: FontWeight.bold,
-    color: Colors.brown[800],
-  ),
-),
-const SizedBox(height: 12),
+                    Text( 'Materiales',
+                        style: GoogleFonts.montserrat(fontSize: fontSize + 2,
+                        fontWeight: FontWeight.bold, color: Colors.brown[800])),
+                    const SizedBox(height: 12),
 ListView.separated(
   shrinkWrap: true,
   physics: const NeverScrollableScrollPhysics(),
@@ -164,6 +159,7 @@ ListView.separated(
   },
 ),
 
+ 
                     const Divider(height: 30, thickness: 1),
                       Row(
   children: [

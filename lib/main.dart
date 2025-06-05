@@ -3,10 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-
 import 'models/negocio.dart';
 import 'providers/negocio_provider.dart';
-
 // Pantallas
 import 'screens/bienvenida_screen.dart';
 import 'screens/inicio_screen.dart';
@@ -73,9 +71,6 @@ class BizBloomApp extends StatelessWidget {
           '/datos-negocio': (context) => const DatosNegocioScreen(),
           '/login': (context) => const LoginScreen(),
           '/olvide': (context) => const OlvideContrasenaScreen(),
-          
-
-          // Ruta con argumento para GenerarScreen
           '/generar': (context) {
             final args = ModalRoute.of(context)!.settings.arguments;
             if (args != null && args is Negocio) {
@@ -84,8 +79,6 @@ class BizBloomApp extends StatelessWidget {
               return const BienvenidaScreen();
             }
           },
-
-          // Ruta con argumento para DetalleNegocioScreen
            '/detalleNegocio': (context) => const DetalleNegocioScreen(),
         },
       ),

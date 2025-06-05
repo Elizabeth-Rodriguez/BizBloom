@@ -36,7 +36,6 @@ class HablemosScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
 
-              // Imagen debajo del texto
               Image.asset(
                 'assets/images/graphic.png', 
                 width: size.width * 0.7,

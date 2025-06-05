@@ -4,7 +4,7 @@ import '../widgets/base_screen.dart';
 import '../widgets/negocio_card.dart';
 import '../helpers/db_helper.dart';
 import '../models/negocio.dart';
-import 'package:firebase_auth/firebase_auth.dart';       // MODIFICADO
+import 'package:firebase_auth/firebase_auth.dart';   
 import 'package:google_sign_in/google_sign_in.dart';
 
 class InicioScreen extends StatefulWidget {
@@ -79,7 +79,7 @@ Widget build(BuildContext context) {
     actions: [
     IconButton(
       icon: const Icon(Icons.logout, color: Colors.black),
-      onPressed: () => _confirmarCierreSesion(context), // función que definiremos abajo
+      onPressed: () => _confirmarCierreSesion(context), 
     ),
   ],
     child: Column(
