@@ -51,7 +51,6 @@ class BaseScreen extends StatelessWidget {
 
       ),
 
-      // BODY sin SingleChildScrollView para evitar conflicto con Expanded
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20),

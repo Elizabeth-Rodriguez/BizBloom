@@ -131,12 +131,12 @@ Widget campoTexto(String label, TextEditingController controller, {int maxLines 
             isDense: true,
             contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16), // Borde redondeado
+              borderRadius: BorderRadius.circular(16), 
               borderSide: const BorderSide(color: Colors.black),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2), // Al enfocar
+              borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2),
             ),
           ),
         ),

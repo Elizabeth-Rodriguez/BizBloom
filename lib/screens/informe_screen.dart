@@ -52,7 +52,7 @@ class _InformeScreenState extends State<InformeScreen> {
 
     return BaseScreen(
       title: 'Informe',
-      showBack: true,
+      showBack: false,
       showBottomBar: false,
       showSkip: false,
       child: LayoutBuilder(
@@ -70,15 +70,18 @@ class _InformeScreenState extends State<InformeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Text(
-                      negocio.nombreNegocio,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                        fontSize: titleSize,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+              child: Text(
+                negocio.nombreNegocio,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins (
+                  fontSize: titleSize,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFBF5E0C),
+                ),
+              ),
+            ),
+            
+            const SizedBox(height: 16),
                   Card(
                     elevation: 0,
                     shape: RoundedRectangleBorder(
@@ -121,7 +124,8 @@ class _InformeScreenState extends State<InformeScreen> {
                     Text('Precio: \$${precioVenta.toStringAsFixed(2)}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
 
-                    const Divider(height: 30, thickness: 1),//SUGERENCIA
+                    const Divider(height: 30, thickness: 1),
+                    //SUGERENCIA
 
                     Text('Sugerencia',
                         style: GoogleFonts.montserrat(
@@ -144,7 +148,7 @@ class _InformeScreenState extends State<InformeScreen> {
                                   fontWeight: FontWeight.bold)),
                           const SizedBox(height: 10),
                           Text(
-                            'Punto de Equilibrio: ${puntoEquilibrio.toStringAsFixed(2)} unidades',//Ya no redondea!
+                            'Punto de Equilibrio: ${puntoEquilibrio.toStringAsFixed(2)} unidades',
                                  style: GoogleFonts.montserrat(fontSize: fontSize)),
                         ],
                       ),

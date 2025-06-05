@@ -47,7 +47,7 @@ class GenerarScreen extends StatelessWidget {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed: () async {
-                    await _guardarNegocio(context);  // Guardar negocio antes de navegar
+                    await _guardarNegocio(context); 
                     Navigator.push(
                       context,
                       MaterialPageRoute(

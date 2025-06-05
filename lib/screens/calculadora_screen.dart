@@ -38,7 +38,32 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
     });
   }
 
+
   void mostrarInfoCostosFijos() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text(
+          '¿Qué es el total de producción?',
+          style: TextStyle(color: Colors.brown),
+        ),
+        content: const Text(
+          'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.'
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              'Entendido',
+              style: TextStyle(color: Colors.brown),
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
+  }
+  void mostrarInfoProduccion() {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -48,8 +73,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
           style: TextStyle(color: Colors.brown),
         ),
         content: const Text(
-          'Son gastos constantes como renta, servicios, sueldos, etc., que se deben cubrir cada mes, independientemente de la producción.',
-          style: TextStyle(color: Colors.brown),
+          'El total de producción representa la cantidad de unidades fabricadas. Si no se cuenta con una cifra exacta, ingresa una estimación.'
         ),
         actions: [
           TextButton(
@@ -64,21 +88,58 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
     );
   }
 
-  void calcularCosto() {
-    double total = 0.0;
-    for (var mat in materiales) {
-      double cantidad = double.tryParse(mat['cantidad'].text) ?? 0;
-      double costo = double.tryParse(mat['costo'].text.replaceAll('\$', '')) ?? 0;
-      total += cantidad * costo;
-    }
-
-    double costosFijos = double.tryParse(costoFijoController.text.replaceAll('\$', '')) ?? 0;
-    total += costosFijos;
-
-    setState(() {
-      totalCosto = total;
-    });
+  void mostrarcostomaterial() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white,
+        title: const Text(
+          '¿Qué es el costo unitario de material?',
+          style: TextStyle(color: Colors.brown),
+        ),
+        content: const Text(
+          'Es el costo por unidad de medida utilizada, ya sea por kilo, litro o unidad'
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              'Entendido',
+              style: TextStyle(color: Colors.brown),
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          )
+        ],
+      ),
+    );
   }
+
+  final TextEditingController unidadesProduccionController = TextEditingController();
+
+void calcularCostoUnitario() {
+  double total = 0.0;
+  
+  // Sumar costos de materiales
+  for (var mat in materiales) {
+    double cantidad = double.tryParse(mat['cantidad'].text) ?? 0;
+    double costo = double.tryParse(mat['costo'].text.replaceAll('\$', '')) ?? 0;
+    total += cantidad * costo;
+  }
+
+  // Sumar costos fijos
+  double costosFijos = double.tryParse(costoFijoController.text.replaceAll('\$', '')) ?? 0;
+  total += costosFijos;
+
+  // Obtener cantidad de unidades producidas
+  int unidadesProduccion = int.tryParse(unidadesProduccionController.text) ?? 1;
+
+  // Calcular costo unitario
+  double costoUnitario = total / unidadesProduccion;
+
+  setState(() {
+    totalCosto = costoUnitario;
+  });
+}
+
 
   String formatear(double valor) {
     return NumberFormat.currency(locale: 'es_MX', symbol: '\$').format(valor);
@@ -127,7 +188,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
               const SizedBox(width: 10),
               DropdownButton<String>(
                 value: material['unidad'],
-                items: ['g', 'kg', 'unidad'].map((String unidad) {
+                items: ['L', 'kg', 'unidad'].map((String unidad) {
                   return DropdownMenuItem<String>(
                     value: unidad,
                     child: Text(unidad),
@@ -142,8 +203,17 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
             ],
           ),
           const SizedBox(height: 8),
-          Text('Costo Unitario de Material', style: GoogleFonts.montserrat()),
-          const SizedBox(height: 5),
+          Row(
+              children: [
+                Text('Costo Unitario de Material', style: GoogleFonts.montserrat()),
+                IconButton(
+                  icon: const Icon(Icons.info_outline,
+                      size: 20, color: Colors.brown),
+                  onPressed: mostrarcostomaterial,
+                ),
+              ],
+            ),
+          const SizedBox(height: 2),
           TextField(
             controller: material['costo'],
             keyboardType: TextInputType.number,
@@ -175,7 +245,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
       title: 'Calculadora',
       showBack: true,
       showBottomBar: true,
-      child: SingleChildScrollView(   // <-- Aquí va el scroll
+      child: SingleChildScrollView( 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -200,7 +270,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Costos Fijos Mensuales', style: GoogleFonts.montserrat()),
+                Text('Costos Fijos Por Unidad', style: GoogleFonts.montserrat()),
                 IconButton(
                   icon: const Icon(Icons.info_outline,
                       size: 20, color: Colors.brown),
@@ -228,9 +298,41 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
                 }
               },
             ),
+            //PRODUCCIÓN
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Total De Producción', style: GoogleFonts.montserrat()),
+                IconButton(
+                  icon: const Icon(Icons.info_outline,
+                      size: 20, color: Colors.brown),
+                  onPressed: mostrarInfoProduccion,
+                ),
+              ],
+            ),
+            const SizedBox(height: 1),
+            TextField(
+              controller: unidadesProduccionController,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+              decoration: const InputDecoration(
+                hintText: '\0.00',
+                hintStyle: TextStyle(fontSize: 20),
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                  costoFijoController.selection = TextSelection.fromPosition(
+                    TextPosition(offset: costoFijoController.text.length),
+                  );
+              },
+            ),
+
             const SizedBox(height: 20),
+
+            
             ElevatedButton(
-              onPressed: calcularCosto,
+              onPressed: calcularCostoUnitario,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFEBDBA9),
                 shape: const StadiumBorder(),
@@ -246,7 +348,7 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
             Text(
               formatear(totalCosto),
               style: GoogleFonts.poppins(
-                  fontSize: 28, fontWeight: FontWeight.bold),
+                  fontSize: 28, fontWeight: FontWeight.normal),
             ),
             const SizedBox(height: 30),
           ],

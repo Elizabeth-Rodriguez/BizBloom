@@ -38,7 +38,7 @@ double CalcularPrecioSugerido() {
     return costoVariable + (costoVariable * 2);
   }
 
-  // COSTO TOTAL (materiales + costos fijos, si quieres saber el total)
+  // COSTO TOTAL (materiales + costos fijos)
   double calcularCostoTotal() {
     double costoMateriales = calcularCostoVariableUnitario();
     return costoMateriales + costosFijos;
@@ -50,7 +50,6 @@ double CalcularPrecioSugerido() {
     double precioVenta = CalcularPrecioUsuario();
     double margenContribucion = precioVenta - costoVariable;
     if (margenContribucion <= 0) {
-      // Evitar división por cero o negativa 
       return 0;
     }
     return costosFijos / margenContribucion;

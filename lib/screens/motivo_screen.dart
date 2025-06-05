@@ -82,7 +82,6 @@ class _MotivoScreenState extends State<MotivoScreen> {
 
           const SizedBox(height: 30),
 
-          // Botón de Siguiente
           ElevatedButton(
             onPressed: opcionSeleccionada == null
                 ? null
