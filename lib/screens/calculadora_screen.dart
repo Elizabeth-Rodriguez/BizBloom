@@ -178,11 +178,16 @@ void calcularCostoUnitario() {
                 child: TextField(
                   controller: material['cantidad'],
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
+                  cursorColor: Colors.brown,
+                  decoration: InputDecoration(
                     hintText: '0.0',
                     border: OutlineInputBorder(),
                     isDense: true,
-                  ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(color: Color(0xFF8B5E3C), width: 2),
+                        ),
+                  ),           
                 ),
               ),
               const SizedBox(width: 10),
@@ -217,6 +222,7 @@ void calcularCostoUnitario() {
           TextField(
             controller: material['costo'],
             keyboardType: TextInputType.number,
+            cursorColor: Colors.brown,
             textAlign: TextAlign.center,
             decoration: const InputDecoration(
               hintText: '\$0.00',
@@ -282,6 +288,7 @@ void calcularCostoUnitario() {
             TextField(
               controller: costoFijoController,
               keyboardType: TextInputType.number,
+              cursorColor: Colors.brown,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20),
               decoration: const InputDecoration(
@@ -314,6 +321,7 @@ void calcularCostoUnitario() {
             TextField(
               controller: unidadesProduccionController,
               keyboardType: TextInputType.number,
+              cursorColor: Colors.brown,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20),
               decoration: const InputDecoration(
