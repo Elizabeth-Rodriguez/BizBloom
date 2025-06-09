@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'models/negocio.dart';
 import 'providers/negocio_provider.dart';
+import 'firebase_options.dart';
 // Pantallas
 import 'screens/bienvenida_screen.dart';
 import 'screens/inicio_screen.dart';
@@ -38,7 +39,9 @@ Future<Map<String, dynamic>> loadConfig() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadConfig();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const BizBloomApp());
 }
 
