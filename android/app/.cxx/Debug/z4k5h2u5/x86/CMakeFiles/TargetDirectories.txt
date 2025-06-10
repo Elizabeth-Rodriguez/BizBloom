@@ -1,0 +1,2 @@
+C:/Users/PC/Desktop/BizBloom/android/app/.cxx/Debug/z4k5h2u5/x86/CMakeFiles/edit_cache.dir
+C:/Users/PC/Desktop/BizBloom/android/app/.cxx/Debug/z4k5h2u5/x86/CMakeFiles/rebuild_cache.dir
