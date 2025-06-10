@@ -114,7 +114,7 @@ class _InformeScreenState extends State<InformeScreen> {
                         'Margen de Ganancia: ${negocio.margenGanancia.toStringAsFixed(2)}%',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     Text(
-                        'Ganancia: \$${negocio.calcularGananciaPesos()}',
+                        'Ganancia: \$${negocio.calcularGananciaPesos().toStringAsFixed(2)}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
 
                     Text('Costo unitario: \$${costoUnitario.toStringAsFixed(2)}',
@@ -135,7 +135,7 @@ class _InformeScreenState extends State<InformeScreen> {
                         'Margen de Ganancia: 200%',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     Text(
-                        'Ganancia: \$${negocio.calcularGananciaSugerida()}',
+                        'Ganancia: \$${negocio.calcularGananciaSugerida().toStringAsFixed(2)}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
                     Text('Precio Sugerido: \$${precioSugerido.toStringAsFixed(2)}',
                         style: GoogleFonts.montserrat(fontSize: fontSize)),
